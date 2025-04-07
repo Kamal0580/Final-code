@@ -16,18 +16,17 @@ class _HomePageState extends State<HomePage> {
   // Create a variable that captures the input of a text input
   final TextEditingController taskController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold( 
-
-    appBar: AppBar(
-      backgroundColor: Colors.blue,
-      title: Row(children: [
-
-
-      ],)
-    ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Row(
+          children: [
+            Expanded(child: Image.asset('assets/rdplogo.png', height: 80)),
+          ],
+        ),
+      ),
     );
   }
 }
