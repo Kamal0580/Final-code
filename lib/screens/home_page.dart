@@ -19,6 +19,12 @@ class _HomePageState extends State<HomePage> {
   // Create a variable that captures the input of a text input
   final TextEditingController nameController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    fetchTasks();
+  }
+
   //Fetch tasks from the db and also update the task list in memory
   Future<void> fetchTasks() async {
     final snapshots = await db.collection('tasks').orderBy('timestamp').get();
