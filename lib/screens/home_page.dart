@@ -43,6 +43,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  //function add new task to local state & firestore database
+  Future<void> addTask() async {
+    final taskName = nameController.text.trim();
+    if (taskName.isNotEmpty) {
+      final newTask = {
+        'name': taskName,
+        'completed': false,
+        'timestamp': FieldValue.serverTimestamp(),
+      };
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
