@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,9 +12,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  //creat an empty list of maps which represent our tasks
+
+  //Create an empty list of maps which represent our tasks
   final List<Map<String, dynamic>> tasks = [];
-  // Create a variable that captures the input of a text input
+
+  //Create a variable that captures the input of a text input
   final TextEditingController nameController = TextEditingController();
 
   @override
@@ -43,9 +43,10 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  //function add new task to local state & firestore database
+  //function add new tasks to local state & firestore database
   Future<void> addTask() async {
     final taskName = nameController.text.trim();
+
     if (taskName.isNotEmpty) {
       final newTask = {
         'name': taskName,
@@ -68,23 +69,30 @@ class _HomePageState extends State<HomePage> {
               'RDP Daily Planner',
               style: TextStyle(
                 fontFamily: 'Caveat',
-                color: Colors.white,
                 fontSize: 32,
+                color: Colors.white,
               ),
             ),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          TableCalendar(
-            calendarFormat: CalendarFormat.month,
-            focusedDay: DateTime.now(),
-            firstDay: DateTime(2025),
-            lastDay: DateTime(2026),
-          ),
-          buildAddTaskSection(nameController),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 340,
+              child: TableCalendar(
+                calendarFormat: CalendarFormat.month,
+                focusedDay: DateTime.now(),
+                firstDay: DateTime(2025),
+                lastDay: DateTime(2026),
+              ),
+            ),
+            Expanded(
+              child: Container(child: buildAddTaskSection(nameController)),
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(),
     );
@@ -97,8 +105,7 @@ Widget buildAddTaskSection(nameController) {
     padding: const EdgeInsets.all(12.0),
     child: Row(
       children: [
-        Container(
-          decoration: BoxDecoration(color: Colors.white),
+        Expanded(
           child: TextField(
             maxLength: 32,
             controller: nameController,
@@ -117,12 +124,11 @@ Widget buildAddTaskSection(nameController) {
 Widget buildTaskList(tasks) {
   return ListView.builder(
     physics: NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
     itemCount: tasks.length,
     itemBuilder: (context, index) {
       return ListTile(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      );
+      ); 
     },
   );
 }
